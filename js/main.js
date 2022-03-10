@@ -44,8 +44,6 @@ const carouselImages = [
 ];
 
 
-
-
 // mi prendo il wrapper delle immagini di thubnails
 const thubsWrapper = document.querySelector('.my-thumbnails');
 
@@ -53,41 +51,51 @@ const thubsWrapper = document.querySelector('.my-thumbnails');
 for (let i = 0; i < carouselImages.length; i++){
     thubsWrapper.innerHTML += `<img src="${carouselImages[i].source}" class="my-img-thub" alt="${carouselImages[i].name}">`;
 }
+// Mi richiamo tutte le immagini di thubnails appena create
+const thubnailsImg = document.getElementsByClassName('my-img-thub');
 
+// Richiamo la funzione che visualizza lo slider e passo l'indice della prima foto
 let position = 0;
-//viewFullImage (carouselImages, position);
-setInterval(viewFullImage, 5000, carouselImages, position);
+viewFullImage (carouselImages, position);
+thubnailsImg[position].classList.add('active');
+
+// Imposto un ciclo infinito ogni 7 secondi
+setInterval(() => {
+    document.querySelector('.my-next').click();
+}, 7000); 
 
 
-// Mi scrivo una funzione che al click del pulsante next fa avanzare lo slider
+// All'evento di click sul pulsante next avanza lo slider
 document.querySelector('.my-next').addEventListener('click', function(){
+    thubnailsImg[position].classList.remove('active');
     if(position != carouselImages.length - 1) {
         position ++;
     } else{
         position = 0;
     }
-
-    console.log(`Mi trovo alla posizione: ${position}`);
+    
+    //console.log(`Mi trovo alla posizione: ${position}`);
     viewFullImage (carouselImages, position);
+    thubnailsImg[position].classList.add('active');
 });
 
 
-// Mi scrivo una funzione che al click del pulsante previous fa retreggiare lo slider
+// All'evento di click sul pulsante previous retreggia lo slider
 document.querySelector('.my-previous').addEventListener('click', function(){
+    thubnailsImg[position].classList.remove('active');
     if(position == 0) {
         position = carouselImages.length - 1;
     } else{
         position --;
     }
-
-    console.log(`Mi trovo alla posizione: ${position}`);
+    
+    //console.log(`Mi trovo alla posizione: ${position}`);
     viewFullImage (carouselImages, position);
+    thubnailsImg[position].classList.add('active');
 });
 
+
 /******************************FUNCTIONS************************************/
-
-
-
 function viewFullImage (array, indexElementView){
     // Mi prendo il wrapper dell'immagine full size
     const carouselFullImage = document.querySelector('.my-carousel-images');

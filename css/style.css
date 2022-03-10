@@ -20,7 +20,7 @@ div.my-carousel-images{
 }
 
 div.my-thumbnails{
-    background-color: violet;
+    background-color: black;
     width:100%;
     height: 160px;
     display: flex;
@@ -30,6 +30,12 @@ div.my-thumbnails > .my-img-thub{
     width: calc(100% / 5);
     height: 100%;
     object-fit: cover;
+    opacity: .5;
+}
+
+div.my-thumbnails > .my-img-thub.active{
+    border: 4px solid rgb(235, 226, 226);
+    opacity: 1;
 }
 
 div.my-previous,
