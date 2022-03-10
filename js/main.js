@@ -13,6 +13,90 @@ al click di un bottone o già dall'inizio possiamo far partire, ad intervalli di
 
 Bonus 2:
 E se volessi un bottone per invertire la "direzione" del carosello?
-
  *
  */
+const carouselImages = [
+    {
+        name: 'Immagine random 1',
+        description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+        source: 'https://picsum.photos/id/0/5616/3744',
+    },
+    {
+        name: 'Immagine random 2',
+        description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+        source: 'https://picsum.photos/id/2/5616/3744',
+    },
+    {
+        name: 'Immagine random 3',
+        description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+        source: 'https://picsum.photos/id/3/5616/3744',
+    },
+    {
+        name: 'Immagine random 4',
+        description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+        source: 'https://picsum.photos/id/4/5616/3744',
+    },
+    {
+        name: 'Immagine random 5',
+        description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+        source: 'https://picsum.photos/id/1/5616/3744',
+    },
+];
+
+
+
+
+// mi prendo il wrapper delle immagini di thubnails
+const thubsWrapper = document.querySelector('.my-thumbnails');
+
+// Visualizzo nel wrapper thubnails tutte le immagini contenute nell'array di oggetti
+for (let i = 0; i < carouselImages.length; i++){
+    thubsWrapper.innerHTML += `<img src="${carouselImages[i].source}" class="my-img-thub" alt="${carouselImages[i].name}">`;
+}
+
+let position = 0;
+//viewFullImage (carouselImages, position);
+setInterval(viewFullImage, 5000, carouselImages, position);
+
+
+// Mi scrivo una funzione che al click del pulsante next fa avanzare lo slider
+document.querySelector('.my-next').addEventListener('click', function(){
+    if(position != carouselImages.length - 1) {
+        position ++;
+    } else{
+        position = 0;
+    }
+
+    console.log(`Mi trovo alla posizione: ${position}`);
+    viewFullImage (carouselImages, position);
+});
+
+
+// Mi scrivo una funzione che al click del pulsante previous fa retreggiare lo slider
+document.querySelector('.my-previous').addEventListener('click', function(){
+    if(position == 0) {
+        position = carouselImages.length - 1;
+    } else{
+        position --;
+    }
+
+    console.log(`Mi trovo alla posizione: ${position}`);
+    viewFullImage (carouselImages, position);
+});
+
+/******************************FUNCTIONS************************************/
+
+
+
+function viewFullImage (array, indexElementView){
+    // Mi prendo il wrapper dell'immagine full size
+    const carouselFullImage = document.querySelector('.my-carousel-images');
+    carouselFullImage.innerHTML = `
+        <div class="carousel-element position-relative">
+            <img src="${array[indexElementView].source}" class="my-img-carousel" alt="${array[indexElementView].name}">
+            <div class="carousel-img-description position-absolute bottom-0 end-0 text-end text-white p-4">
+                <h3>${array[indexElementView].name}</h3>
+                <p>${array[indexElementView].description}</p>
+            </div>
+        </div>`;
+}
